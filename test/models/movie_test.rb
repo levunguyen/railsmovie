@@ -8,4 +8,8 @@ class MovieTest < ActiveSupport::TestCase
 		assert_not movie.save,"Saved the article without a title"
 	end
 
+	test "test_no_name" do
+		movie = Movie.new(:rating => 'PG', :length_minutes => '10')
+		assert_not movie.save, "Model constraints did not catch null name"
+	end
 end

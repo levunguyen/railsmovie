@@ -10,21 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206072828) do
+ActiveRecord::Schema.define(version: 20161206074433) do
 
-  create_table "auditoria", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "auditoriums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "auditorium_identifier"
     t.integer  "seats_available"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.integer  "theatres_id"
-    t.index ["theatres_id"], name: "index_auditoria_on_theatres_id", using: :btree
+    t.index ["theatres_id"], name: "index_auditoriums_on_theatres_id", using: :btree
   end
 
   create_table "movie_showtimes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "movie_id"
-    t.integer  "auditorium_id"
     t.datetime "start_time"
+    t.integer  "auditoriums_id"
+    t.integer  "movies_id"
+    t.index ["auditoriums_id"], name: "index_movie_showtimes_on_auditoriums_id", using: :btree
+    t.index ["movies_id"], name: "index_movie_showtimes_on_movies_id", using: :btree
   end
 
   create_table "movies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -54,5 +56,7 @@ ActiveRecord::Schema.define(version: 20161206072828) do
     t.datetime "updated_at",       null: false
   end
 
-  add_foreign_key "auditoria", "theatres", column: "theatres_id"
+  add_foreign_key "auditoriums", "theatres", column: "theatres_id"
+  add_foreign_key "movie_showtimes", "auditoriums", column: "auditoriums_id"
+  add_foreign_key "movie_showtimes", "movies", column: "movies_id"
 end

@@ -10,34 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202042829) do
+ActiveRecord::Schema.define(version: 20161206072828) do
 
-  create_table "movie_showtimes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "movie_id"
-    t.integer  "theatre_id"
-    t.string   "auditorium"
-    t.datetime "start_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "auditoria", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "auditorium_identifier"
+    t.integer  "seats_available"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "theatres_id"
+    t.index ["theatres_id"], name: "index_auditoria_on_theatres_id", using: :btree
   end
 
-  create_table "movies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "movie_showtimes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "movie_id"
+    t.integer  "auditorium_id"
+    t.datetime "start_time"
+  end
+
+  create_table "movies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "length_minutes"
-    t.string   "rating"
+    t.integer  "rating_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
-  create_table "theatres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "ratings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "rating_name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "theatres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "address_line_1"
     t.string   "address_line_2"
     t.string   "address_city"
     t.string   "address_zip_code"
     t.string   "phone_number"
+    t.string   "address_state"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
 
+  add_foreign_key "auditoria", "theatres", column: "theatres_id"
 end

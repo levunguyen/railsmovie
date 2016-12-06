@@ -7,7 +7,7 @@ class CreateTheatres < ActiveRecord::Migration[5.0]
       t.string :address_city
       t.string :address_zip_code
       t.string :phone_number
-
+      t.string :address_state
       t.timestamps
     end
   end

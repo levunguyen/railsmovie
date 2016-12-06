@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  theatre_id: 1
+  auditorium_identifier: 1
+  seats_available: 1
+
+two:
+  theatre_id: 1
+  auditorium_identifier: 1
+  seats_available: 1

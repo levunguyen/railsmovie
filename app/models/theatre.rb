@@ -1,3 +1,3 @@
 class Theatre < ApplicationRecord
-	has_many :movie_showtimes
+	has_many :auditoria
 end
